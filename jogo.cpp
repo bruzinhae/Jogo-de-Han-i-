@@ -53,6 +53,12 @@ void printa_cor(int cor, char c) {
 }
 
 void mostrar(Tubo T[]) {
+    // Imprimir o número do tubo referente e espaço entre eles
+    for (int i = 1; i <= TAM; ++i) {
+        cout << "  " << i << "   ";
+    }
+    cout << endl;
+
     for (int i = TAM - 1; i >= 0; --i) {
         for (int j = 0; j < TAM; ++j) {
             cout << "| ";
@@ -87,7 +93,7 @@ int validar(Tubo T[], int o, int d) {
 }
 
 int validar_fim(Tubo T[]) {
-    int cor_topo = -1;  
+    int cor_topo = -1;
 
     for (int i = 0; i < TAM; ++i) {
         if (!isEmpty(T[i].pilha)) {
@@ -95,16 +101,15 @@ int validar_fim(Tubo T[]) {
             if (cor_topo == -1) {
                 cor_topo = cor;
             } else if (cor_topo != cor) {
-                return 0;  
+                return 0;
             }
         } else {
-            return 0;  
+            return 0;
         }
     }
 
-    return 1;  
+    return 1;
 }
-
 
 int jogada(Tubo T[]) {
     int origem, destino;
@@ -113,17 +118,17 @@ int jogada(Tubo T[]) {
         cout << "Escolha um tubo de origem (1-" << TAM << ") ou digite -1 para sair: ";
         cin >> origem;
 
-        // Check if the user wants to exit
+        // Verifica se o usuário quer sair
         if (origem == -1) {
-            return 0; // Exit the game
+            return 0; // Sair do jogo
         }
 
         cout << "Escolha um tubo de destino (1-" << TAM << ") ou digite -1 para sair: ";
         cin >> destino;
 
-        // Check if the user wants to exit
+        // Verifica se o usuário quer sair
         if (destino == -1) {
-            return 0; // Exit the game
+            return 0; // Sair do jogo
         }
 
         // Verifica se a origem e o destino estão dentro do intervalo válido
@@ -150,7 +155,7 @@ int jogada(Tubo T[]) {
         }
         return 1; // Continua o jogo
     } else {
-        return 1; // Jog
+        return 1; // Continua o jogo
     }
 }
 
@@ -166,26 +171,26 @@ int main() {
         do {
             retorno = jogada(T);
 
-            // Check if the user chose to exit (-1)
+            // Verifica se o usuário escolheu sair (-1)
             if (retorno == 0) {
-                break;  // Exit the inner loop
+                break; // Sair do loop interno
             }
 
             mostrar(T);
         } while (retorno);
 
-        // Check if the user chose to exit (-1)
+        // Verifica se o usuário escolheu sair (-1)
         if (retorno == 0) {
-            break;  // Exit the outer loop
+            break; // Sair do loop externo
         }
 
         cout << "Parabéns! Você venceu!" << endl;
         cout << "Deseja jogar novamente? 1 SIM ou 0 NÃO: ";
         cin >> repetir;
-        
-        // Check if the user chose to exit (-1)
+
+        // Verifica se o usuário escolheu sair (-1)
         if (repetir == 0) {
-            break;  // Exit the outer loop
+            break; // Sair do loop externo
         }
 
         inicia_vazias(T);
