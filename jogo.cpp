@@ -1,6 +1,5 @@
 #include <iostream>
 #include <stdlib.h>
-#include <cstdlib>
 #include <ctime>
 #include <windows.h>
 
@@ -32,10 +31,9 @@ void inicia_vazias(Tubo T[]) {
 void distribuir_tubo(Tubo T[]) {
     srand(time(0));
 
-    // Distribuir os 30 "O"s pelos 6 tubos de forma aleatória
     for (int i = 0; i < 30; ++i) {
         int tubo = rand() % TAM;
-        int valor = i % 5 + 1;   // Alternar entre as 5 cores
+        int valor = i % 5 + 1;   
 
         push(T[tubo].pilha, valor);
         T[tubo].numero_elementos++;
@@ -49,11 +47,10 @@ void mudacor(int cor) {
 void printa_cor(int cor, char c) {
     mudacor(cor);
     cout << c;
-    mudacor(15); // Restaurar a cor padrão
+    mudacor(15); 
 }
 
 void mostrar(Tubo T[]) {
-    // Imprimir o número do tubo referente e espaço entre eles
     for (int i = 1; i <= TAM; ++i) {
         cout << "  " << i << "   ";
     }
@@ -112,50 +109,39 @@ int validar_fim(Tubo T[]) {
 }
 
 int jogada(Tubo T[]) {
-    int origem, destino;
+    int o, d;
 
     do {
         cout << "Escolha um tubo de origem (1-" << TAM << ") ou digite -1 para sair: ";
-        cin >> origem;
-
-        // Verifica se o usuário quer sair
-        if (origem == -1) {
-            return 0; // Sair do jogo
+        cin >> o;
+        if (o == -1) {
+            return 0; 
         }
 
         cout << "Escolha um tubo de destino (1-" << TAM << ") ou digite -1 para sair: ";
-        cin >> destino;
+        cin >> d;
 
-        // Verifica se o usuário quer sair
-        if (destino == -1) {
-            return 0; // Sair do jogo
+        if (d == -1) {
+            return 0; 
         }
-
-        // Verifica se a origem e o destino estão dentro do intervalo válido
-        if (origem < 1 || origem > TAM || destino < 1 || destino > TAM) {
+        if (o < 1 || o > TAM || d < 1 || d > TAM) {
             cout << "Tubo de origem ou destino inválido! Escolha outra." << endl;
         }
-    } while (origem < 1 || origem > TAM || destino < 1 || destino > TAM);
+    } while (o < 1 || o > TAM || d < 1 || d > TAM);
 
-    // Verifica se a origem não está vazia e se a jogada é válida
-    if (!isEmpty(T[origem - 1].pilha) && validar(T, origem, destino)) {
-        // Armazena temporariamente o primeiro elemento que será movido
-        stack_element elementoTemporario = peek(T[origem - 1].pilha);
 
-        // Mover o elemento temporário para a nova pilha do destino
-        push(T[destino - 1].pilha, elementoTemporario);
-        T[destino - 1].numero_elementos++;
-
-        // Remove o primeiro elemento da pilha de origem
-        pop(T[origem - 1].pilha);
-        T[origem - 1].numero_elementos--;
-
+    if (!isEmpty(T[o - 1].pilha) && validar(T, o, d)) {
+        stack_element elementoT = peek(T[o - 1].pilha);
+        push(T[d - 1].pilha, elementoT);
+        T[d - 1].numero_elementos++;
+        pop(T[o - 1].pilha);
+        T[o - 1].numero_elementos--;
         if (validar_fim(T)) {
-            return 0; // Fim do jogo
+            return 0; 
         }
-        return 1; // Continua o jogo
+        return 1; 
     } else {
-        return 1; // Continua o jogo
+        return 1; 
     }
 }
 
@@ -171,26 +157,24 @@ int main() {
         do {
             retorno = jogada(T);
 
-            // Verifica se o usuário escolheu sair (-1)
             if (retorno == 0) {
-                break; // Sair do loop interno
+                break; 
             }
 
             mostrar(T);
         } while (retorno);
 
-        // Verifica se o usuário escolheu sair (-1)
+
         if (retorno == 0) {
-            break; // Sair do loop externo
+            break; 
         }
 
         cout << "Parabéns! Você venceu!" << endl;
         cout << "Deseja jogar novamente? 1 SIM ou 0 NÃO: ";
         cin >> repetir;
 
-        // Verifica se o usuário escolheu sair (-1)
         if (repetir == 0) {
-            break; // Sair do loop externo
+            break; 
         }
 
         inicia_vazias(T);
