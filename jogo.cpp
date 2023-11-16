@@ -62,7 +62,7 @@ void mudacor(int cor) {
 void printa_cor(int cor, char c) {
     mudacor(cor);
     cout << c;
-    mudacor(15); 
+    mudacor(15);
 }
 
 void mostrar(Tubo T[]) {
@@ -116,7 +116,7 @@ int validar_fim(Tubo T[]) {
                 return 0;
             }
         } else {
-            return 0;
+            return 1;
         }
     }
 
@@ -130,20 +130,19 @@ int jogada(Tubo T[]) {
         cout << "Escolha um tubo de origem (1-" << TAM << ") ou digite -1 para sair: ";
         cin >> o;
         if (o == -1) {
-            return 0; 
+            return 0;
         }
 
         cout << "Escolha um tubo de destino (1-" << TAM << ") ou digite -1 para sair: ";
         cin >> d;
 
         if (d == -1) {
-            return 0; 
+            return 0;
         }
         if (o < 1 || o > TAM || d < 1 || d > TAM) {
             cout << "Tubo de origem ou destino inválido! Escolha outra." << endl;
         }
     } while (o < 1 || o > TAM || d < 1 || d > TAM);
-
 
     if (!isEmpty(T[o - 1].pilha) && validar(T, o, d)) {
         stack_element elementoT = peek(T[o - 1].pilha);
@@ -151,12 +150,9 @@ int jogada(Tubo T[]) {
         T[d - 1].numero_elementos++;
         pop(T[o - 1].pilha);
         T[o - 1].numero_elementos--;
-        if (validar_fim(T)) {
-            return 0; 
-        }
-        return 1; 
+        return 1;
     } else {
-        return 1; 
+        return 1;
     }
 }
 
@@ -164,7 +160,9 @@ int main() {
     Tubo T[TAM];
     int repetir = 1, retorno;
 
-    cout << "Bem vindo ao jogo da torre de hanói!" << endl;
+    system("cls");
+    cout << endl;
+    cout << "BEM VINDO AO JOGO DAS TORRES DE HANOI!" << endl;
     cout << "__________________________________" << endl;
     cout << endl;
 
@@ -172,30 +170,32 @@ int main() {
     distribuir_tubo(T);
     mostrar(T);
 
-
-
     do {
         do {
             retorno = jogada(T);
 
             if (retorno == 0) {
-                break; 
+                break;
             }
 
+            system("cls");
             mostrar(T);
         } while (retorno);
 
-
         if (retorno == 0) {
-            break; 
+            break;
         }
 
-        cout << "Parabéns! Você venceu!" << endl;
+        if (validar_fim(T)) {
+            cout << "Parabéns! Você venceu!" << endl;
+            break;
+        }
+
         cout << "Deseja jogar novamente? 1 SIM ou 0 NÃO: ";
         cin >> repetir;
 
         if (repetir == 0) {
-            break; 
+            break;
         }
 
         inicia_vazias(T);
