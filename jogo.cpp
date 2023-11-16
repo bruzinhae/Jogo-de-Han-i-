@@ -66,9 +66,9 @@ void printa_cor(int cor, char c) {
 }
 
 void mostrar(Tubo T[]) {
-    for (int i = 1; i <= TAM; ++i) {
-        cout << "  " << i << "   ";
-    }
+    system("cls");
+    cout << "BEM VINDO AO JOGO DAS TORRES DE HANOI!" << endl;
+    cout << "______________________________________" << endl;
     cout << endl;
 
     for (int i = elemento_cor - 1; i >= 0; --i) {
@@ -87,7 +87,11 @@ void mostrar(Tubo T[]) {
         }
         cout << endl;
     }
-    cout << endl;
+
+    for (int i = 1; i <= TAM; ++i) {
+        cout << "  " << i << "   ";
+    }
+    cout << endl << endl;
 }
 
 int validar(Tubo T[], int o, int d) {
@@ -160,12 +164,6 @@ int main() {
     Tubo T[TAM];
     int repetir = 1, retorno;
 
-    system("cls");
-    cout << endl;
-    cout << "BEM VINDO AO JOGO DAS TORRES DE HANOI!" << endl;
-    cout << "__________________________________" << endl;
-    cout << endl;
-
     inicia_vazias(T);
     distribuir_tubo(T);
     mostrar(T);
@@ -178,7 +176,6 @@ int main() {
                 break;
             }
 
-            system("cls");
             mostrar(T);
         } while (retorno);
 
