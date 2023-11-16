@@ -1,11 +1,14 @@
 #include <iostream>
 #include <stdlib.h>
+#include <cstdlib>
 #include <ctime>
 #include <windows.h>
 
 using namespace std;
 
 #define TAM 6
+#define cores 5
+#define elemento_cor 5
 
 typedef int stack_element;
 
@@ -31,12 +34,24 @@ void inicia_vazias(Tubo T[]) {
 void distribuir_tubo(Tubo T[]) {
     srand(time(0));
 
-    for (int i = 0; i < 30; ++i) {
-        int tubo = rand() % TAM;
-        int valor = i % 5 + 1;   
+    // Inicializar um array com as cores disponíveis
+    int cores_disponiveis[cores];
+    for (int i = 0; i < cores; ++i) {
+        cores_disponiveis[i] = elemento_cor;
+    }
 
-        push(T[tubo].pilha, valor);
-        T[tubo].numero_elementos++;
+    for (int i = 0; i < TAM - 1; ++i) {
+        for (int j = 0; j < elemento_cor; ++j) {
+            // Escolher uma cor aleatória disponível
+            int cor = rand() % cores;
+            while (cores_disponiveis[cor] == 0) {
+                cor = rand() % cores;
+            }
+
+            push(T[i].pilha, cor + 1);
+            T[i].numero_elementos++;
+            cores_disponiveis[cor]--;
+        }
     }
 }
 
@@ -56,7 +71,7 @@ void mostrar(Tubo T[]) {
     }
     cout << endl;
 
-    for (int i = TAM - 1; i >= 0; --i) {
+    for (int i = elemento_cor - 1; i >= 0; --i) {
         for (int j = 0; j < TAM; ++j) {
             cout << "| ";
 
@@ -81,7 +96,7 @@ int validar(Tubo T[], int o, int d) {
         return 0;
     }
 
-    if (T[d - 1].numero_elementos < TAM) {
+    if (T[d - 1].numero_elementos < elemento_cor) {
         return 1;
     } else {
         cout << "Destino cheio! Escolha outro tubo." << endl;
