@@ -164,9 +164,15 @@ int main() {
     Tubo T[TAM];
     int repetir = 1, retorno;
 
+    cout << "Bem vindo ao jogo da torre de hanói!" << endl;
+    cout << "__________________________________" << endl;
+    cout << endl;
+
     inicia_vazias(T);
     distribuir_tubo(T);
     mostrar(T);
+
+
 
     do {
         do {
