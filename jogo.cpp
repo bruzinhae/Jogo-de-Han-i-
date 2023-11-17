@@ -1,3 +1,6 @@
+//Bruna Barbour Fernandes 23007950
+//João Victor Francetto Xavier 23003634
+
 #include <iostream>
 #include <stdlib.h>
 #include <cstdlib>
@@ -33,8 +36,6 @@ void inicia_vazias(Tubo T[]) {
 
 void distribuir_tubo(Tubo T[]) {
     srand(time(0));
-
-    // Inicializar um array com as cores disponíveis
     int cores_disponiveis[cores];
     for (int i = 0; i < cores; ++i) {
         cores_disponiveis[i] = elemento_cor;
@@ -42,12 +43,10 @@ void distribuir_tubo(Tubo T[]) {
 
     for (int i = 0; i < TAM - 1; ++i) {
         for (int j = 0; j < elemento_cor; ++j) {
-            // Escolher uma cor aleatória disponível
             int cor = rand() % cores;
             while (cores_disponiveis[cor] == 0) {
                 cor = rand() % cores;
             }
-
             push(T[i].pilha, cor + 1);
             T[i].numero_elementos++;
             cores_disponiveis[cor]--;
@@ -67,7 +66,7 @@ void printa_cor(int cor, char c) {
 
 void mostrar(Tubo T[]) {
     system("cls");
-    cout << "BEM VINDO AO JOGO DAS TORRES DE HANOI!" << endl;
+    cout << "BEM VINDO!" << endl;
     cout << "______________________________________" << endl;
     cout << endl;
 
